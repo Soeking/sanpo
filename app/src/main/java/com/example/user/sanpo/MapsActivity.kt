@@ -24,8 +24,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val tokyo = LatLng(35.6811323,139.7670182)
+        mMap.addMarker(MarkerOptions().position(tokyo).title("Tokyo"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo,15f))
     }
 }
