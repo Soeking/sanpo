@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.location.LocationProvider
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -26,13 +27,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,LocationListener {
         mapFragment.getMapAsync(this)
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+    override fun onStart() {
+        super.onStart()
         mlm=getSystemService(Context.LOCATION_SERVICE)as LocationManager
 
+        /**
+        if (mlm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            mlm.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,50f,this)
+        }
+        */
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        /**
         val tokyo = LatLng(35.6811323,139.7670182)
         mMap.addMarker(MarkerOptions().position(tokyo).title("Tokyo"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tokyo,15f))
+        */
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mlm.removeUpdates(this)
     }
 
     override fun onLocationChanged(loc: Location?) {
@@ -42,8 +60,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,LocationListener {
         }
     }
 
-    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-
+    override fun onStatusChanged(p0: String?, status: Int, p2: Bundle?) {
+        when(status){
+            LocationProvider.AVAILABLE->{}
+            LocationProvider.OUT_OF_SERVICE->{}
+            LocationProvider.TEMPORARILY_UNAVAILABLE->{}
+        }
     }
 
     override fun onProviderDisabled(p0: String?) {
