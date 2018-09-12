@@ -39,7 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,LocationListener {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        //mMap = googleMap
 
         /**
         val tokyo = LatLng(35.6811323,139.7670182)
@@ -61,11 +61,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,LocationListener {
     }
 
     override fun onStatusChanged(p0: String?, status: Int, p2: Bundle?) {
+        /**
         when(status){
             LocationProvider.AVAILABLE->{}
             LocationProvider.OUT_OF_SERVICE->{}
             LocationProvider.TEMPORARILY_UNAVAILABLE->{}
         }
+        */
     }
 
     override fun onProviderDisabled(p0: String?) {
